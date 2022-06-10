@@ -1,13 +1,27 @@
 import React from 'react';
 import './style.css';
-
-export class ChildComponent extends React.Component {
+class Cat extends React.Component {
+  render() {
+    const mouse = this.props.mouse;
+    return (
+      <div>
+        <img
+          src="https://images.pexels.com/photos/104827/cat-pet-animal-domestic-104827.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"
+          alt="empty"
+          style={{ position: 'absolute', left: mouse.x, top: mouse.y }}
+        />
+      </div>
+    );
+  }
+}
+class MouseWithCat extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       x: 0,
       y: 0,
     };
+    //Please bind
     this.onHandleClick = this.onHandleClick.bind(this);
   }
   onHandleClick(event) {
@@ -19,10 +33,7 @@ export class ChildComponent extends React.Component {
   render() {
     return (
       <div style={{ height: '100vh' }} onMouseMove={this.onHandleClick}>
-        <h1>Move the mouse around!</h1>
-        <p>
-          The current mouse position is ({this.state.x}, {this.state.y})
-        </p>
+        <Cat mouse={this.state} />
       </div>
     );
   }
@@ -32,7 +43,7 @@ export default class App extends React.Component {
     console.log('Render from parent');
     return (
       <div>
-        <ChildComponent />
+        <MouseWithCat />
       </div>
     );
   }
