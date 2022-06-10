@@ -22,9 +22,9 @@ class MouseWithCat extends React.Component {
       y: 0,
     };
     //Please bind
-    this.onHandleClick = this.onHandleClick.bind(this);
+    this._onHandleClick = this._onHandleClick.bind(this);
   }
-  onHandleClick(event) {
+  _onHandleClick(event) {
     this.setState({
       x: event.clientX,
       y: event.clientY,
@@ -32,8 +32,8 @@ class MouseWithCat extends React.Component {
   }
   render() {
     return (
-      <div style={{ height: '100vh' }} onMouseMove={this.onHandleClick}>
-        <Cat mouse={this.state} />
+      <div style={{ height: '100vh' }} onMouseMove={this._onHandleClick}>
+        {this.props.render(this.state)}
       </div>
     );
   }
@@ -43,7 +43,8 @@ export default class App extends React.Component {
     console.log('Render from parent');
     return (
       <div>
-        <MouseWithCat />
+        <h1>Hello world</h1>
+        <MouseWithCat render={(_mouse) => <Cat mouse={_mouse} />} />
       </div>
     );
   }
